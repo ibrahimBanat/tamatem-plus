@@ -17,11 +17,23 @@ model User {
     id        Int      @id @default(autoincrement())
     email     String   @unique
     password  String
+    refreshTokens RefreshToken[]
+
 }
 model Item {
-    id          Int      @id @default(autoincrement())
-    name        String
-    price       Float?
-    image       String?
-    description String?
+    id               Int      @id @default(autoincrement())
+    item_name        String
+    item_price       Float?
+    item_image       String?
+    item_description String?
+}
+
+model RefreshToken {
+    id          String   @id @unique @default(uuid())
+    hashedToken String
+    userId      Int
+    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    revoked     Boolean  @default(false)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
