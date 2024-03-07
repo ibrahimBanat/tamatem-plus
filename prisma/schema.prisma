@@ -14,14 +14,36 @@ datasource db {
 }
 
 model User {
-    id        Int      @id @default(autoincrement())
-    email     String   @unique
-    password  String
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  password      String
+  refreshTokens RefreshToken[]
 }
+
 model Item {
-    id          Int      @id @default(autoincrement())
-    name        String
-    price       Float?
-    image       String?
-    description String?
+  id               Int         @id @default(autoincrement())
+  item_name        String
+  item_price       Float?
+  item_description String?
+  media            Media?      @relation(fields: [media_id], references: [id])
+  media_id         Int?
+}
+
+model RefreshToken {
+  id          String           @id @unique @default(uuid())
+  hashedToken String
+  userId      Int
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked     Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model Media {
+  id        Int                @id @default(autoincrement())
+  type      String
+  name      String
+  path      String
+  extension String
+  Item      Item[]
 }
