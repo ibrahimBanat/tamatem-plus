@@ -2,13 +2,21 @@
 
 const path = require('path')
 const AutoLoad = require('@fastify/autoload')
+const rootDir = path.resolve(__dirname, '/public');
 
 // Pass --options via CLI arguments in command to enable these options.
 module.exports.options = {}
 
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
+    fastify.register(require('@fastify/multipart'), {
+        addToBody: true,
+    });
 
+    fastify.register(require('@fastify/static'), {
+        root: path.join(__dirname, 'public'),
+        prefix: '/public',
+    })
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
