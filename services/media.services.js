@@ -28,8 +28,17 @@ const associateMediaWithItem = async (itemId, mediaId) => {
 const listImages = async () => {
     return db.media.findMany();
 }
+
+const checkMediaExist = async (media_id) => {
+    const mediaExists = await db.media.findUnique({
+        where: { id: media_id }
+    });
+
+    return !!mediaExists;
+}
 module.exports = {
     createMedia,
     associateMediaWithItem,
-    listImages
+    listImages,
+    checkMediaExist
 }

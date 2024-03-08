@@ -20,7 +20,7 @@ module.exports = async function(fastify, opts) {
                     const filename = Date.now() + '-' + Math.floor(Math.random() * 1000) + extension;
                     const filePath = path.join(uploadDir, filename);
                     await pump(part.file, fs.createWriteStream(filePath));
-                    const media = createMedia('image', filename, filePath, extension);
+                    const media = await createMedia('image', filename, filePath, extension);
                     mediaGroup.push(media);
                 }
             }

@@ -27,8 +27,19 @@ const generateTokens = (user, jwtID) => {
 }
 
 
+const verifyToken = (token) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWT_ACCESS_SECRET, (err, decode) => {
+            if (err) return reject(err);
+            resolve(decode);
+        })
+    })
+}
+
+
 module.exports = {
     generateAccessToken,
     generateRefresherToken,
-    generateTokens
+    generateTokens,
+    verifyToken
 }
