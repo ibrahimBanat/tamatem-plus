@@ -34,7 +34,6 @@ const listItems = async (page, pageSize) => {
         take: pageSize
     });
     const totalCount = await db.item.count();
-    console.log(items, "items")
     return { items, totalCount };
 }
 
