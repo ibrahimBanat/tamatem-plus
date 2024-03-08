@@ -17,6 +17,7 @@ module.exports = async function (fastify, opts) {
         root: path.join(__dirname, 'public'),
         prefix: '/public',
     })
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
