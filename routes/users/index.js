@@ -6,9 +6,10 @@ const {findUserByEmail, createUser} = require("../../services/users.services");
 const { v4: uuidv4 } = require('uuid');
 const {generateTokens} = require("../../util/jwt");
 const {addRefreshTokenToWhitelist} = require("../../services/auth.services");
+const {usersSchema} = require("../../schemas/users.schema");
 
 module.exports = async function (fastify, opts) {
-    fastify.post('/', async (request, reply) => {
+    fastify.post('/', {schema: usersSchema}, async (request, reply) => {
         try {
             const {email, password} = request.body;
 
