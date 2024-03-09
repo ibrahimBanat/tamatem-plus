@@ -9,6 +9,9 @@ const createItem = async(item_name, item_price, item_description, media_id=null)
             item_price: item_price,
             item_description: item_description,
             media_id: media_id
+        },
+        include: {
+            media: true
         }
     });
 }
@@ -64,10 +67,15 @@ const updateItem = async (id, newData) => {
     }
 }
 
-
+const deleteItem = (id) => {
+    return db.item.delete({
+        where: {id: id}
+    })
+}
 module.exports = {
     createItem,
     getItemById,
     listItems,
-    updateItem
+    updateItem,
+    deleteItem
 }
