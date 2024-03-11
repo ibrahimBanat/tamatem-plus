@@ -36,10 +36,18 @@ const verifyToken = (token) => {
     })
 }
 
-
+const verifyRefreshToken = (token) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWT_REFRESH_SECRET, (err, decode) => {
+            if (err) return reject(err);
+            resolve(decode);
+        })
+    })
+}
 module.exports = {
     generateAccessToken,
     generateRefresherToken,
     generateTokens,
-    verifyToken
+    verifyToken,
+    verifyRefreshToken
 }

@@ -14,11 +14,12 @@ module.exports = async function(fastify, opts) {
         try {
             const parts = request.files();
             const mediaGroup = [];
+            const HOST_URL = process.env.HOST_URL;
             for await (const part of parts) {
                 if (part.file) {
                     const extension = path.extname(part.filename);
                     const filename = Date.now() + '-' + Math.floor(Math.random() * 1000) + extension;
-                    const filePath = path.join(uploadDir, filename);
+                    const filePath = path.join(uploadDir, filename)
                     await pump(part.file, fs.createWriteStream(filePath));
                     const media = await createMedia('image', filename, filePath, extension);
                     mediaGroup.push(media);
@@ -27,7 +28,7 @@ module.exports = async function(fastify, opts) {
             return mediaGroup;
 
         } catch (e) {
-            reply.status(500).send("Internal Server Error");
+            reply.status(500).send(e);
         }
     })
 }

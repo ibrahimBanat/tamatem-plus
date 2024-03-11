@@ -11,7 +11,7 @@ const findUserByEmail = (email) => {
 }
 
 const createUser = (user) => {
-    user.password = bcrypt.hashSync(user.password, 12);
+    user.password = bcrypt.hashSync(user.password, process.env.SALT);
     return db.user.create({
         data: user,
     });

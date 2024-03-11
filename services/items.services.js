@@ -47,15 +47,26 @@ const updateItem = async (id, newData) => {
             if (!mediaExist) {
                 throw new Error("Media id is not found");
             }
+            return await db.item.update({
+                where: {id: id},
+                data: {
+                    item_name: newData.name,
+                    item_price: newData.price,
+                    item_description: newData.description,
+                    media: {connect: {id: newData.media_id}}
+                },
+                include: {
+                    media: true
+                }
+            });
         }
 
         return await db.item.update({
             where: {id: id},
             data: {
-                item_name: newData.item_name,
-                item_price: newData.item_price,
-                item_description: newData.item_description,
-                media: newData.media_id ? {connect: {id: newData.media_id}} : null
+                item_name: newData.name,
+                item_price: newData.price,
+                item_description: newData.description,
             },
             include: {
                 media: true
