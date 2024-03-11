@@ -18,6 +18,17 @@ module.exports = async function (fastify, opts) {
         prefix: '/public',
     })
 
+    fastify.register(require('@fastify/cors'), {
+        origin: process.env.FRONTEND_ORIGIN,
+        credentials: true
+    })
+
+    fastify.register(require('@fastify/cookie'), {
+        secret: "my-secret", // for cookies signature
+        hook: 'onRequest', // set to false to disable cookie autoparsing or set autoparsing on any of the following hooks: 'onRequest', 'preParsing', 'preHandler', 'preValidation'. default: 'onRequest'
+        parseOptions: {}  // options for parsing cookies
+    })
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins

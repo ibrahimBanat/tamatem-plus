@@ -39,8 +39,10 @@ module.exports = async function (fastify, opts) {
         }
     })
 
-    fastify.put('/:id', {schema: listItemsSchema},  async (request, reply) => {
+    fastify.put('/:id', {schema: updateItemSchema},  async (request, reply) => {
         try {
+            console.log(request.headers.authorization, 'auth');
+            console.log(request.body, 'auth');
             try {
                 await verifyToken(request.headers.authorization);
             } catch (e) {
