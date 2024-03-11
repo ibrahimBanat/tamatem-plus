@@ -3,7 +3,7 @@ const path = require('path');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
-const uploadDir = path.join(__dirname, 'public');
+const uploadDir = path.join(__dirname, 'public/images');
 
 async function seedData() {
     try {

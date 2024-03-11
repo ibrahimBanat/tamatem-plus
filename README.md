@@ -46,8 +46,13 @@ Apply the database migrations using Prisma CLI:
 ````bash
 npx prisma migrate dev
 ````
+4. **Generate Prisma Client**
 
-4. **Seed the Database**
+5. **Seed the Database**
+
+```bash
+    npx prisma generate
+```
 
 Run the seeding script to populate your database with initial data. Execute the seeding script:
 
@@ -55,7 +60,7 @@ Run the seeding script to populate your database with initial data. Execute the 
 node prisma.seed.js
 ```
 
-5. **Start the Fastify Server**
+6.**Start the Fastify Server**
 
 ```bash
 npm start
